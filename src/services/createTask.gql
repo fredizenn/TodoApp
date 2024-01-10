@@ -1,0 +1,7 @@
+mutation CreateTask($title: String!, $description: String!) {
+  addTask(title: $title, description: $description) {
+    success
+    message
+    code
+  }
+}

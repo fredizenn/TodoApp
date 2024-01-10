@@ -1,0 +1,233 @@
+type ApiResponse {
+  code: String!
+  message: String
+  success: Boolean!
+}
+
+type ApiResponseOfBoolean {
+  code: String!
+  data: Boolean!
+  message: String
+  success: Boolean!
+}
+
+input BooleanOperationFilterInput {
+  eq: Boolean
+  neq: Boolean
+}
+
+"""The `DateTime` scalar represents an ISO-8601 compliant date time type."""
+scalar DateTime
+
+input DateTimeOperationFilterInput {
+  eq: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime]
+  lt: DateTime
+  lte: DateTime
+  neq: DateTime
+  ngt: DateTime
+  ngte: DateTime
+  nin: [DateTime]
+  nlt: DateTime
+  nlte: DateTime
+}
+
+type Food {
+  id: Int!
+  name: String!
+  vendor: Vendor
+  vendorId: Int!
+}
+
+input FoodFilterInput {
+  and: [FoodFilterInput!]
+  id: IntOperationFilterInput
+  name: StringOperationFilterInput
+  or: [FoodFilterInput!]
+  vendor: VendorFilterInput
+  vendorId: IntOperationFilterInput
+}
+
+input FoodSortInput {
+  id: SortEnumType
+  name: SortEnumType
+  vendor: VendorSortInput
+  vendorId: SortEnumType
+}
+
+input IntOperationFilterInput {
+  eq: Int
+  gt: Int
+  gte: Int
+  in: [Int]
+  lt: Int
+  lte: Int
+  neq: Int
+  ngt: Int
+  ngte: Int
+  nin: [Int]
+  nlt: Int
+  nlte: Int
+}
+
+"""
+The `Long` scalar type represents non-fractional signed whole 64-bit numeric values. Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+input LongOperationFilterInput {
+  eq: Long
+  gt: Long
+  gte: Long
+  in: [Long]
+  lt: Long
+  lte: Long
+  neq: Long
+  ngt: Long
+  ngte: Long
+  nin: [Long]
+  nlt: Long
+  nlte: Long
+}
+
+type Menu {
+  day: String!
+  food: Food!
+  foodId: Int!
+  id: Int!
+}
+
+input MenuFilterInput {
+  and: [MenuFilterInput!]
+  day: StringOperationFilterInput
+  food: FoodFilterInput
+  foodId: IntOperationFilterInput
+  id: IntOperationFilterInput
+  or: [MenuFilterInput!]
+}
+
+input MenuSortInput {
+  day: SortEnumType
+  food: FoodSortInput
+  foodId: SortEnumType
+  id: SortEnumType
+}
+
+type Mutation {
+  addFood(name: String!, vendorId: Int!): ApiResponse!
+  addMenu(day: String!, foodId: [Int!]!): ApiResponse!
+  addTask(description: String!, title: String!): ApiResponse!
+  addVendor(name: String!): ApiResponse!
+  completeTask(id: Long!): ApiResponseOfBoolean!
+  deleteFood(id: Int!): ApiResponseOfBoolean!
+  deleteMenu(id: Int!): ApiResponseOfBoolean!
+  deleteTask(id: Long!): ApiResponseOfBoolean!
+  deleteVendor(id: Int!): ApiResponseOfBoolean!
+  placeOrder(foodId: Int!, username: String!): ApiResponse!
+  updateFood(id: Int!, name: String!, vendorId: Int!): ApiResponse!
+  updateMenu(day: String!, foodId: Int!, menuId: Int!): ApiResponse!
+  updateTask(description: String!, id: Long!, isComplete: Boolean!, title: String!): ApiResponse!
+  updateVendor(id: Int!, name: String!): ApiResponse!
+}
+
+type Order {
+  day: DateTime!
+  food: Food!
+  foodId: Int!
+  id: Int!
+  username: String!
+}
+
+input OrderFilterInput {
+  and: [OrderFilterInput!]
+  day: DateTimeOperationFilterInput
+  food: FoodFilterInput
+  foodId: IntOperationFilterInput
+  id: IntOperationFilterInput
+  or: [OrderFilterInput!]
+  username: StringOperationFilterInput
+}
+
+input OrderSortInput {
+  day: SortEnumType
+  food: FoodSortInput
+  foodId: SortEnumType
+  id: SortEnumType
+  username: SortEnumType
+}
+
+type Query {
+  foods(order: [FoodSortInput!], where: FoodFilterInput): [Food!]!
+  menus(order: [MenuSortInput!], where: MenuFilterInput): [Menu!]!
+  orders(day: DateTime!, order: [OrderSortInput!], where: OrderFilterInput): [Order!]!
+  tasks(order: [TodoSortInput!], where: TodoFilterInput): [Todo!]!
+  vendors(order: [VendorSortInput!], where: VendorFilterInput): [Vendor!]!
+}
+
+enum SortEnumType {
+  ASC
+  DESC
+}
+
+input StringOperationFilterInput {
+  and: [StringOperationFilterInput!]
+  contains: String
+  endsWith: String
+  eq: String
+  in: [String]
+  ncontains: String
+  nendsWith: String
+  neq: String
+  nin: [String]
+  nstartsWith: String
+  or: [StringOperationFilterInput!]
+  startsWith: String
+}
+
+type Todo {
+  createdDate: DateTime!
+  description: String!
+  id: Long!
+  isCompleted: Boolean!
+  title: String!
+  updatedDate: DateTime!
+}
+
+input TodoFilterInput {
+  and: [TodoFilterInput!]
+  createdDate: DateTimeOperationFilterInput
+  description: StringOperationFilterInput
+  id: LongOperationFilterInput
+  isCompleted: BooleanOperationFilterInput
+  or: [TodoFilterInput!]
+  title: StringOperationFilterInput
+  updatedDate: DateTimeOperationFilterInput
+}
+
+input TodoSortInput {
+  createdDate: SortEnumType
+  description: SortEnumType
+  id: SortEnumType
+  isCompleted: SortEnumType
+  title: SortEnumType
+  updatedDate: SortEnumType
+}
+
+type Vendor {
+  id: Int!
+  name: String!
+}
+
+input VendorFilterInput {
+  and: [VendorFilterInput!]
+  id: IntOperationFilterInput
+  name: StringOperationFilterInput
+  or: [VendorFilterInput!]
+}
+
+input VendorSortInput {
+  id: SortEnumType
+  name: SortEnumType
+}

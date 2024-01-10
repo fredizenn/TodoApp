@@ -1,0 +1,9 @@
+query GetTasks {
+    tasks(order: { id: DESC}) { 
+        createdDate
+        updatedDate
+        title
+        description
+        isCompleted
+    }
+}
