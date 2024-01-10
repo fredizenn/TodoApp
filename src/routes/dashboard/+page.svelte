@@ -4,6 +4,7 @@
   import { readTasks } from "../../services/service";
   import { onMount } from "svelte";
   import { formatDate } from "../../date";
+  import Loader from "../../components/Loader.svelte";
 
   let data: any = [];
   let todayData: any = [];
@@ -20,8 +21,10 @@
         data = res.data;
         todayData = data.filter(
           (f: any) => formatDate(f.createdDate) === formatDate(today)
-        ).splice(-4);
-        pastData = res.data.splice(-4);
+        ).splice(0, 3);
+        pastData = res.data.filter(
+          (f: any) => formatDate(f.createdDate) !== formatDate(today)
+        ).splice(0, 3);;
         console.log({ todayData });
         loading = false;
       } else {
@@ -37,15 +40,19 @@
   });
 </script>
 
-<div class="p-8">
+<div class="h-full p-8">
+  {#if loading}
+  <div class="h-full flex justify-center items-center">
+    <Loader loadingMsg=" " />
+  </div>
+  {:else}
   <div class="text-4xl">
     Today's Tasks
   </div>
 
+
   <div class="mt-4 space-y-2">
-    {#if loading}
-      <div>Loading...</div>
-    {:else if todayData?.length > 0}
+    {#if todayData?.length > 0}
       {#each todayData as item}
         <TaskCard data={item} />
       {/each}
@@ -62,4 +69,5 @@
       <TaskCard data={item} />
     {/each}
   </div>
+{/if}
 </div>

@@ -1,0 +1,6 @@
+mutation CompleteTask ($id: Long!) {
+    completeTask (id: $id) {
+        success 
+        message
+    }
+}

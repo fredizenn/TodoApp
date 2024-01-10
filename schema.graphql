@@ -186,6 +186,10 @@ input StringOperationFilterInput {
   startsWith: String
 }
 
+type Subscription {
+  onPublished: Todo!
+}
+
 type Todo {
   createdDate: DateTime!
   description: String!

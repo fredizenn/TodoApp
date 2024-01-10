@@ -15,9 +15,9 @@
   >
     <div class="min-w-0 flex-1">
       <div class="flex items-center justify-between">
-        <div class="flex items-center text-md font-bold text-gray-900">
+        <div class="flex items-center text-md font-bold text-sm text-gray-900">
           <span
-            class="flex items-center mr-2 justify-center flex-shrink-0 bg-gray-200 rounded-md h-8 w-8"
+            class="flex items-center mr-2 justify-center flex-shrink-0 bg-amber-100 rounded-md h-8 w-8"
             class:bg-white={data.isCompleted}
           >
             {#if data.isCompleted}
@@ -31,7 +31,7 @@
         <div class="text-sm font-bold text-gray-500">{formatDate(data.createdDate)}</div>
       </div>
       {#if !data.isCompleted}
-        <div class="p-1 text-sm font-semibold text-gray-500">
+        <div class="p-1 text-sm font-medium truncate text-gray-500">
           {data.description}
         </div>
       {/if}

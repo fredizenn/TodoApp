@@ -1,0 +1,6 @@
+mutation DeleteTask($id: Long!) {
+    deleteTask(id: $id) {
+        success
+        message
+    }
+}
